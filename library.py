@@ -50,8 +50,8 @@ class DropColumnsTransformer(BaseEstimator, TransformerMixin):
   def fit_transform(self, X, y = None):
     result = self.transform(X)
     return result
-    
- class MappingTransformer(BaseEstimator, TransformerMixin):
+ 
+class MappingTransformer(BaseEstimator, TransformerMixin):
   
   def __init__(self, mapping_column, mapping_dict:dict):
     assert isinstance(mapping_dict, dict), f'{self.__class__.__name__} constructor expected dictionary but got {type(mapping_dict)} instead.' #f'{self.__class__.__name__} gets class name
