@@ -52,15 +52,18 @@ class DropColumnsTransformer(BaseEstimator, TransformerMixin):
     return result
  
 class MappingTransformer(BaseEstimator, TransformerMixin):
+  
   def __init__(self, mapping_column, mapping_dict:dict):
     assert isinstance(mapping_dict, dict), f'{self.__class__.__name__} constructor expected dictionary but got {type(mapping_dict)} instead.' #f'{self.__class__.__name__} gets class name
     self.mapping_dict = mapping_dict
-    self.mapping_column = mapping_column  #column to focus ondef fit(self, X, y = None):
+    self.mapping_column = mapping_column  #column to focus on
+
+  def fit(self, X, y = None):
     print(f"\nWarning: {self.__class__.__name__}.fit does nothing.\n")
     return X
-  
+
   def transform(self, X):
-    ##Check if X is a dataframe
+
     assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
     assert self.mapping_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.mapping_column}"'  #column legit?
     
