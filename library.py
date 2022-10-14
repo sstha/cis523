@@ -52,9 +52,9 @@ class DropColumnsTransformer(BaseEstimator, TransformerMixin):
             X_ = X[self.column_list]
         if self.action == 'drop':
             X_=X.copy()
-        if column_set != set():
-            print(f"\nWarning: {self.__class__.__name__} does not contain these columns to drop: {column_set}.\n")
-        X_= X_.drop(columns=self.column_list, errors ='ignore')
+            if column_set != set():
+              print(f"\nWarning: {self.__class__.__name__} does not contain these columns to drop: {column_set}.\n")
+            X_= X_.drop(columns=self.column_list, errors ='ignore')
         return X_
 
     def fit_transform(self, X, y = None):
