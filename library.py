@@ -14,13 +14,13 @@ class MappingTransformer(BaseEstimator, TransformerMixin):
     def transform(self, X):
         assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
         assert self.mapping_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.mapping_column}"'  #column legit?
-    #now check to see if all keys are contained in column
+        #now check to see if all keys are contained in column
         column_set = set(X[self.mapping_column])
         keys_not_found = set(self.mapping_dict.keys()) - column_set
         if keys_not_found:
             print(f"\nWarning: {self.__class__.__name__}[{self.mapping_column}] does not contain these keys as values {keys_not_found}\n")
 
-    #now check to see if some keys are absent
+        #now check to see if some keys are absent
         keys_absent = column_set -  set(self.mapping_dict.keys())
         if keys_absent:
             print(f"\nWarning: {self.__class__.__name__}[{self.mapping_column}] does not contain keys for these values {keys_absent}\n")
