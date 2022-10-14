@@ -100,7 +100,7 @@ class Sigma3Transformer(BaseEstimator, TransformerMixin):
         s3min=(m-3*sig)
         s3max=(m+3*sig)
         X_=X.copy()
-        X_[self.column_name] = X_[self.column_name].clip(lower=s3min, upper=s3max)`
+        X_[self.column_name] = X_[self.column_name].clip(lower=s3min, upper=s3max)
         return X_
 
     def fit_transform(self, X, y = None):
