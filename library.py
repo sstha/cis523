@@ -81,7 +81,7 @@ class OHETransformer(BaseEstimator, TransformerMixin):
         return result
       
       
-class Sigma3Transformer(BaseEstimator, TransformerMixin)
+class Sigma3Transformer(BaseEstimator, TransformerMixin):
 
     def __init__(self, column_name):
         self.column_name = column_name  
