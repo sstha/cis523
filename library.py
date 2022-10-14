@@ -79,3 +79,30 @@ class OHETransformer(BaseEstimator, TransformerMixin):
     def fit_transform(self, X, y = None):
         result = self.transform(X)
         return result
+      
+      
+class Sigma3Transformer(BaseEstimator, TransformerMixin)
+
+    def __init__(self, column_name):
+        self.column_name = column_name  
+
+    def fit(self, X, y = None):
+        print(f"\nWarning: {self.__class__.__name__}.fit does nothing.\n")
+        return X
+
+    def transform(self, X):
+        assert isinstance(X, pd.core.frame.DataFrame), f'expected Dataframe but got {type(X)} instead.'
+        assert self.column_name in X.columns.to_list(), f'unknown column {self.column_name}'
+        assert all([isinstance(v, (int, float)) for v in X[self.column_name].to_list()])
+
+        m=X[self.column_name].mean()
+        sig=X[self.column_name].std()
+        s3min=(m-3*sig)
+        s3max=(m+3*sig)
+        X_=X.copy()
+        X_[self.column_name] = X_[self.column_name].clip(lower=s3min, upper=s3max)`
+        return X_
+
+    def fit_transform(self, X, y = None):
+        result = self.transform(X)
+        return result
