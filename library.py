@@ -50,11 +50,11 @@ class DropColumnsTransformer(BaseEstimator, TransformerMixin):
   def fit_transform(self, X, y = None):
     result = self.transform(X)
     return result
- 
-class MappingTransformer(BaseEstimator, TransformerMixin):
   
+ class MappingTransformer(BaseEstimator, TransformerMixin):
+
   def __init__(self, mapping_column, mapping_dict:dict):
-    assert isinstance(mapping_dict, dict), f'{self.__class__.__name__} constructor expected dictionary but got {type(mapping_dict)} instead.' #f'{self.__class__.__name__} gets class name
+    assert isinstance(mapping_dict, dict), f'{self.__class__.__name__} constructor expected dictionary but got {type(mapping_dict)} instead.'
     self.mapping_dict = mapping_dict
     self.mapping_column = mapping_column  #column to focus on
 
@@ -64,8 +64,8 @@ class MappingTransformer(BaseEstimator, TransformerMixin):
 
   def transform(self, X):
     assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
-    assert self.mapping_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.mapping_column}"'
-    
+    assert self.mapping_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.mapping_column}"'  #column legit?
+
     #now check to see if all keys are contained in column
     column_set = set(X[self.mapping_column])
     keys_not_found = set(self.mapping_dict.keys()) - column_set
