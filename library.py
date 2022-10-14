@@ -63,7 +63,6 @@ class MappingTransformer(BaseEstimator, TransformerMixin):
     return X
 
   def transform(self, X):
-
     assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
     assert self.mapping_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.mapping_column}"'  #column legit?
     
