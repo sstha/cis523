@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import Pipeline
+pd.options.mode.chained_assignment = None
   
 class MappingTransformer(BaseEstimator, TransformerMixin):
     def __init__(self, mapping_column, mapping_dict:dict):
