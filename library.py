@@ -5,22 +5,20 @@ from sklearn.pipeline import Pipeline
   
 class MappingTransformer(BaseEstimator, TransformerMixin):
     def __init__(self, mapping_column, mapping_dict:dict):
-        assert isinstance(mapping_dict, dict), f'{self.__class__.__name__} constructor expected dictionary but got {type(mapping_dict)} instead.' #f'{self.__class__.__name__} gets class name
+        assert isinstance(mapping_dict, dict), f'{self.__class__.__name__} constructor expected dictionary but got {type(mapping_dict)} instead.'
         self.mapping_dict = mapping_dict
-        self.mapping_column = mapping_column  #column to focus on
+        self.mapping_column = mapping_column
     def fit(self, X, y = None):
         print(f"\nWarning: {self.__class__.__name__}.fit does nothing.\n")
         return X
     def transform(self, X):
         assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
-        assert self.mapping_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.mapping_column}"'  #column legit?
-        #now check to see if all keys are contained in column
+        assert self.mapping_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.mapping_column}"'
         column_set = set(X[self.mapping_column])
         keys_not_found = set(self.mapping_dict.keys()) - column_set
         if keys_not_found:
             print(f"\nWarning: {self.__class__.__name__}[{self.mapping_column}] does not contain these keys as values {keys_not_found}\n")
 
-        #now check to see if some keys are absent
         keys_absent = column_set -  set(self.mapping_dict.keys())
         if keys_absent:
             print(f"\nWarning: {self.__class__.__name__}[{self.mapping_column}] does not contain keys for these values {keys_absent}\n")
@@ -140,6 +138,28 @@ class TukeyTransformer(BaseEstimator, TransformerMixin):
             X_[self.target_column] = X_[self.target_column].clip(lower=outer_low, upper=outer_high)
             return X_
         
+
+    def fit_transform(self, X, y = None):
+        result = self.transform(X)
+        return result
+      
+      
+class MinMaxTransformer(BaseEstimator, TransformerMixin):
+    def __init__(self):
+        pass 
+
+    def fit(self, X, y = None):
+        print(f"\nWarning: {self.__class__.__name__}.fit does nothing.\n")
+        return X
+
+    def transform(self, X):
+        X_=X.copy()
+        min=X_.min()
+        max=X_.max()
+        denom=max-min
+        X_ -=min
+        X_ /=denom
+        return X_
 
     def fit_transform(self, X, y = None):
         result = self.transform(X)
