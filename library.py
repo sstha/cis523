@@ -63,6 +63,8 @@ class DropColumnsTransformer(BaseEstimator, TransformerMixin):
 class OHETransformer(BaseEstimator, TransformerMixin):
     def __init__(self, target_column, dummy_na=False, drop_first=False):  
         self.target_column = target_column
+        self.dummy_na=dummy_na
+        self.drop_first=drop_first
 
     def fit(self, X, y = None):
         print(f"\nWarning: {self.__class__.__name__}.fit does nothing.\n")
@@ -72,7 +74,7 @@ class OHETransformer(BaseEstimator, TransformerMixin):
         assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
         assert self.target_column in X.columns.to_list(), f'{self.__class__.__name__}.transform unknown column "{self.target_column}"'
         X_ = X.copy()
-        X_=pd.get_dummies(X,prefix=self.target_column,prefix_sep='_', columns=[self.target_column],dummy_na=False, drop_first=False)
+        X_=pd.get_dummies(X,prefix=self.target_column,prefix_sep='_', columns=[self.target_column],dummy_na=self.dummy_na, drop_first=self.dummy_first)
         return X_
 
     def fit_transform(self, X, y = None):
