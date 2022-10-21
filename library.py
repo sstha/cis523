@@ -33,7 +33,7 @@ class MappingTransformer(BaseEstimator, TransformerMixin):
         return result
       
 class DropColumnsTransformer(BaseEstimator, TransformerMixin):
-    def __init__(self, column_list, action):
+    def __init__(self, column_list, action="drop"):
         assert action in ['keep', 'drop'], f'{self.__class__.__name__} action {action} not in ["keep", "drop"]'
         self.column_list=column_list
         self.action=action
