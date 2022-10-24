@@ -194,7 +194,8 @@ class KNNTransformer(BaseEstimator, TransformerMixin):
         result = self.transform(X)
         return result
       
- def find_random_state(features_df, labels, n=200):
+      
+def find_random_state(features_df, labels, n=200):
     model = KNeighborsClassifier(n_neighbors=5)
     var = []  
     for i in range(1, n):
