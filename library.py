@@ -163,7 +163,7 @@ class MinMaxTransformer(BaseEstimator, TransformerMixin):
         from sklearn.preprocessing import MinMaxScaler
         scaler=MinMaxScaler()
         column_name=X_.columns.to_list()
-        scaler_df=pd.DataFrame(scaler.fit_transform(X),columns = column_name)
+        scaler_df=pd.DataFrame(scaler.fit_transform(X_),columns = column_name)
         return scaler_df
 
     def fit_transform(self, X, y = None):
