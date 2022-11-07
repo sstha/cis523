@@ -6,7 +6,8 @@ from sklearn.metrics import f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 pd.options.mode.chained_assignment = None
-  
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+
 class MappingTransformer(BaseEstimator, TransformerMixin):
     def __init__(self, mapping_column, mapping_dict:dict):
         assert isinstance(mapping_dict, dict), f'{self.__class__.__name__} constructor expected dictionary but got {type(mapping_dict)} instead.'
