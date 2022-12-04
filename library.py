@@ -86,6 +86,25 @@ class OHETransformer(BaseEstimator, TransformerMixin):
     def fit_transform(self, X, y = None):
         result = self.transform(X)
         return result
+    
+class LabelEncoderTransformer(BaseEstimator, TransformerMixin):
+    def __init__(self,mapping_column):
+        self.mapping_column = mapping_column
+
+    def fit(self, X, y = None):
+        print(f"\nWarning: {self.__class__.__name__}.fit does nothing.\n")
+        return X
+
+    def transform(self, X):
+        X_=X.copy() 
+        from sklearn.preprocessing import LabelEncoder
+        labelencoder = LabelEncoder()
+        X_[self.mapping_column]=labelencoder.fit_transform(X_[self.mapping_column])
+        return X_
+
+    def fit_transform(self, X, y = None):
+        result = self.transform(X)
+        return result
       
       
 class Sigma3Transformer(BaseEstimator, TransformerMixin):
